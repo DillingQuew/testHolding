@@ -16,7 +16,6 @@ include 'DB/DataBase.php';
 use DB\DataBase\DataBase;
 $pdo = DataBase::DB();
 $stmt = $pdo->query('SELECT * FROM Persons');
-//$arrayPrepare = $stmt->fetch(PDO::FETCH_LAZY);
 $count = 0;
 ?>
 <table class="table">
@@ -28,15 +27,15 @@ $count = 0;
         <th scope="col">Должность</th>
         <th scope="col">Подробнее</th>
         <th scope="col">Отчет НДФЛ</th>
+<!--        <th scope="col">Уволить сотрудника</th>-->
     </tr>
     </thead>
-    <tr class="container col-md">
+    <tr class="container col-md" style="display:flex; ">
         <h1>Сотрудники</h1>
         <a class = "btn btn-primary" href="/create.php">Добавить сотрудника</a>
     </tr>
     <?php while($obj = $stmt->fetch(PDO::FETCH_LAZY))
     {
-//      var_dump($obj);
         ?>
         <tr>
 
@@ -53,12 +52,17 @@ $count = 0;
             <td>
                 <form action="NDFL_report.php" method="GET">
                     <input type="hidden" id="Id" name="Id" value="<?php echo($obj['Id']);?>">
-                    <button type="submit" class="btn btn-primary">ОТЧЕТ НДФЛ</button>
+                    <button type="submit" class="btn btn-success">ОТЧЕТ НДФЛ</button>
                 </form>
             </td>
+<!--            <td>-->
+<!--                <form action="action_delete.php" method="POST">-->
+<!--                    <input type="hidden" id="Id" name="Id" value="--><?php //echo($obj['Id']);?><!--">-->
+<!--                    <button type="submit" class="btn btn-danger">Уволить сотрудника</button>-->
+<!--                </form>-->
+<!--            </td>-->
         </tr>
         <?php
-
     }
     ?>
     </tbody>
